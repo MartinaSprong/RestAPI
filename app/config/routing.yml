@@ -1,8 +1,14 @@
 acme_blog:
-    resource: "@AcmeBlogBundle/Controller/"
-    type:     annotation
-    prefix:   /
+    type: rest
+    prefix: /api
+    resource: "@AcmeBlogBundle/Resources/config/routes.yml"
 
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation
+
+acme_blog_Page:
+    type: rest
+    prefix: /v1
+    resource: "Acme\BlogBundle\Controller\PageController"
+    name_prefix:  api_1_ # naming collision
