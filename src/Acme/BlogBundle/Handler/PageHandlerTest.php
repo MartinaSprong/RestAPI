@@ -23,4 +23,6 @@ class PageHandlerTest
         $decoded = json_decode($content, true);
         $this->assertTrue(isset($decoded['id']));
     }
+
+
 }

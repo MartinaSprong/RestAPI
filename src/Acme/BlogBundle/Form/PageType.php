@@ -29,4 +29,12 @@ class PageType extends AbstractType
             'data_class' => 'Acme\BlogBundle\Entity\Page'
         ));
     }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return 'page';
+    }
 }

@@ -1,3 +1,5 @@
+<?xml version="1.0" ?>
+
 <parameters>
     <parameter key="acme_blog.page.handler.class">Acme\BlogBundle\Handler\PageHandler</parameter>
     <parameter key="acme_blog.page.class">Acme\BlogBundle\Entity\Page</parameter>
@@ -7,6 +9,6 @@
 <service id="acme_blog.page.handler" class="%acme_blog.page.handler.class%">
     <argument type="service" id="doctrine.orm.entity_manager" />
     <argument>%acme_blog.page.class%</argument>
+    <argument type="service" id="form.factory"></argument>
 </service>
 </services>
-
