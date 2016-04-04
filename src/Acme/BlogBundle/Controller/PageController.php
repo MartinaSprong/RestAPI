@@ -43,6 +43,51 @@ class PageController extends FOSRestController
     }
 
     /**
+     * Create a Page from the submitted data.
+     *
+    /**
+     * @ApiDoc(
+     *   resource = true,
+     *   description = "Creates a new page from the submitted data.",
+     *   input = "Acme\BlogBundle\Form\PageType",
+     *   statusCodes = {
+     *     200 = "Returned when successful",
+     *     400 = "Returned when the form has errors"
+     *   }
+     * )
+     *
+     *
+     * @Annotations\View(
+     *  template = "AcmeBlogBundle:Page:newPage.html.twig",
+     *  statusCode = Codes::HTTP_BAD_REQUEST,
+     *  templateVar = "form"
+     * )
+     *
+     * @param Request $request the request object
+     *
+     * @return FormTypeInterface|View
+     */
+    public function postPageAction(Request $request)
+    {
+        try {
+            // Hey Page handler create a new Page.
+            $newPage = $this->container->get('acme_blog.page.handler')->post(
+                $request->request->all()
+            );
+
+            $routeOptions = array(
+                'id' => $newPage->getId(),
+                '_format' => $request->get('_format')
+            );
+
+            return $this->routeRedirectView('api_1_get_page', $routeOptions, Codes::HTTP_CREATED);
+        } catch (InvalidFormException $exception) {
+
+            return $exception->getForm();
+        }
+    }
+
+    /**
      * Fetch the Page or throw a 404 exception.
      *
      * @param mixed $id
@@ -58,6 +103,25 @@ class PageController extends FOSRestController
         }
 
         return $page;
+    }
+
+    /**
+     * Presents the form to use to create a new page.
+     *
+     * @ApiDoc(
+     *   resource = true,
+     *   statusCodes = {
+     *     200 = "Returned when successful"
+     *   }
+     * )
+     *
+     * @Annotations\View()
+     *
+     * @return FormTypeInterface
+     */
+    public function newPageAction()
+    {
+        return $this->createForm(new PageType());
     }
 
 }

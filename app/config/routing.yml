@@ -12,3 +12,8 @@ acme_blog_Page:
     prefix: /v1
     resource: "Acme\BlogBundle\Controller\PageController"
     name_prefix:  api_1_ # naming collision
+
+NelmioApiDocBundle:
+    resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
+    prefix:   /api/doc
+
